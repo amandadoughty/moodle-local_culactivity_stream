@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="message/output/culactivity_stream/db" VERSION="20130508" COMMENT="XMLDB file for Moodle message/output/culactivity_stream"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="message_culactivity_stream_q" COMMENT="message_culactivity_stream_q table">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="18" NOTNULL="true" SEQUENCE="true" NEXT="sent"/>
+        <FIELD NAME="sent" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userfromid"/>
+        <FIELD NAME="userfromid" TYPE="int" LENGTH="18" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="sent" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="18" NOTNULL="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="userfromid" NEXT="cmid"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="18" NOTNULL="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="courseid" NEXT="smallmessage"/>
+        <FIELD NAME="smallmessage" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="cmid" NEXT="component"/>
+        <FIELD NAME="component" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT="local_culactivity_stream" SEQUENCE="false" PREVIOUS="smallmessage" NEXT="modulename"/>
+        <FIELD NAME="modulename" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="component" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="18" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="modulename" NEXT="contexturl"/>
+        <FIELD NAME="contexturl" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="timecreated" NEXT="contexturlname"/>
+        <FIELD NAME="contexturlname" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="contexturl" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary_id" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="index_courseid" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
