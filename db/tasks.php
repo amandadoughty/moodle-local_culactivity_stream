@@ -15,18 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'local_culactivity_stream', language 'en'
+ * Definition of activity stream scheduled tasks.
  *
- * @package    local
- * @subpackage culactivity_stream
+ * @package    local_culactivity_stream
  * @copyright  2013 Amanda Doughty <amanda.doughty.1@city.ac.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
  */
 
-$string['created'] = '{$a} created';
-$string['incourse'] = ' in {$a}.';
-$string['messageprovider:course_updates'] = 'Course updates';
-$string['pluginname'] = 'CUL Activity Stream';
-$string['processqueue'] = 'Process the queue of course update messages';
-$string['updated'] = '{$a} updated';
+defined('MOODLE_INTERNAL') || die();
+
+$tasks = array(
+    array(
+        'classname' => 'local_culactivity_stream\task\process_queue',
+        'blocking' => 0,
+        'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    )
+);
