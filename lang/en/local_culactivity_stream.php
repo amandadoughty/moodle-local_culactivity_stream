@@ -25,8 +25,12 @@
  */
 
 $string['created'] = '{$a} created';
+$string['configmessagingdeleteactivityfeeddelay'] = 'Feed notifications can be deleted to save space. How long after a notification is created can it be deleted?';
 $string['incourse'] = ' in {$a}.';
+$string['messagingdeleteactivityfeeddelay'] = 'Delete CUL Activity Feed notifications';
 $string['messageprovider:course_updates'] = 'Course updates';
 $string['pluginname'] = 'CUL Activity Stream';
 $string['processqueue'] = 'Process the queue of course update messages';
+$string['taskmessagingcleanup'] = 'Clean up old messages from the CUL Activity Feed tables';
 $string['updated'] = '{$a} updated';
+

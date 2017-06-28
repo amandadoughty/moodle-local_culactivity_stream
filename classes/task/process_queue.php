@@ -42,18 +42,28 @@ class process_queue extends \core\task\scheduled_task {
         $messages = $DB->get_recordset('message_culactivity_stream_q', array('sent' => 0));
 
         // Loop through messages.
-        foreach ($messages as $message) {
-            // Required.
-            $message->name = 'course_updates';
-            $message->userfrom = $DB->get_record('user', array('id' => $message->userfromid));
-            $message->subject = $message->smallmessage;
-            $message->fullmessage = $message->smallmessage;
-            $message->fullmessageformat = FORMAT_PLAIN;
-            $message->fullmessagehtml = $message->smallmessage;
+        foreach($messages as $message) {
+            $eventdata = new \core\message\message();
+
+            foreach($message as $prop => $value) {
+                try{
+                    $eventdata->$prop = $value;
+                } catch(\Exception $e) {
+                    // Do nothing. Our table property is not a property of \core\message\message.
+                }
+            }
+
+            $eventdata->name = 'course_updates';
+            $eventdata->userfrom = $DB->get_record('user', array('id' => $message->userfromid));
+            $eventdata->subject = $message->smallmessage;
+            $eventdata->fullmessage = $message->smallmessage;
+            $eventdata->fullmessageformat = FORMAT_PLAIN;
+            $eventdata->fullmessagehtml = $message->smallmessage; 
+            // Optional.
+            $eventdata->notification = 1;
+
             // Update queue.
             $message->sent = 1;
-            // Optional.
-            $message->notification = 1;
 
             try {
                 $course = $DB->get_record('course', array('id' => $message->courseid));
@@ -80,8 +90,8 @@ class process_queue extends \core\task\scheduled_task {
                             break;
                         }
                         if ($mod->uservisible) {
-                            $message->userto = $user;
-                            message_send($message);
+                            $eventdata->userto = $user;
+                            message_send($eventdata);
                             $countsent++;
                         }
                     }
