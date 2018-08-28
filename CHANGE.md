@@ -1,6 +1,12 @@
+### Date: 		2018-Aug-28
+### Version:	v2017062803
+### Release:    3.2.1
+
+- Corrected PATH in /db/install.xml
+
 ### Date: 		2018-May-13
 ### Version:	v2016110402
-### Release:    3.0.2
+### Release:    3.2.0
 
 - Changed version and release numbers so that whole set is in sync.
 

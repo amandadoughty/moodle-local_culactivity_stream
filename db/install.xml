@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="message/output/culactivity_stream/db" VERSION="20130508" COMMENT="XMLDB file for Moodle message/output/culactivity_stream"
+<XMLDB PATH="local/culactivity_stream/db" VERSION="20130508" COMMENT="XMLDB file for Moodle message/output/culactivity_stream"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
