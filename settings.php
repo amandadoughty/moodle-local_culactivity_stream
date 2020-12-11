@@ -25,10 +25,23 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) { // needs this condition or there is error on login page
+if ($hassiteconfig) {
     $settings = new admin_settingpage('local_culactivity_stream', 'CUL Activity Stream');
-	$ADMIN->add('localplugins', $settings);
+    $ADMIN->add('localplugins', $settings);
 
-	$options = array(DAYSECS=>new lang_string('secondstotime86400'), WEEKSECS=>new lang_string('secondstotime604800'), 2620800=>new lang_string('nummonth', 'moodle', 1), 15724800=>new lang_string('nummonths', 'moodle', 6), 31449600=>new lang_string('numyear', 'moodle', 1),0=>new lang_string('never'));
-    $settings->add(new admin_setting_configselect('messagingdeleteactivityfeeddelay', new lang_string('messagingdeleteactivityfeeddelay', 'local_culactivity_stream'), new lang_string('configmessagingdeleteactivityfeeddelay', 'local_culactivity_stream'), 31449600, $options));
-}    
+    $options = [
+        DAYSECS => new lang_string('secondstotime86400'),
+        WEEKSECS => new lang_string('secondstotime604800'),
+        2620800 => new lang_string('nummonth', 'moodle', 1),
+        15724800 => new lang_string('nummonths', 'moodle', 6),
+        31449600 => new lang_string('numyear', 'moodle', 1),
+        0 => new lang_string('never')
+    ];
+    $settings->add(new admin_setting_configselect(
+        'messagingdeleteactivityfeeddelay',
+        new lang_string('messagingdeleteactivityfeeddelay', 'local_culactivity_stream'),
+        new lang_string('configmessagingdeleteactivityfeeddelay', 'local_culactivity_stream'),
+        31449600,
+        $options
+    ));
+}

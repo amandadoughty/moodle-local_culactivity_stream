@@ -42,14 +42,15 @@ class process_queue extends \core\task\scheduled_task {
         $messages = $DB->get_recordset('message_culactivity_stream_q', array('sent' => 0));
 
         // Loop through messages.
-        foreach($messages as $message) {
+        foreach ($messages as $message) {
             $eventdata = new \core\message\message();
 
-            foreach($message as $prop => $value) {
-                try{
+            foreach ($message as $prop => $value) {
+                try {
                     $eventdata->$prop = $value;
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     // Do nothing. Our table property is not a property of \core\message\message.
+                    continue;
                 }
             }
 
@@ -58,7 +59,7 @@ class process_queue extends \core\task\scheduled_task {
             $eventdata->subject = $message->smallmessage;
             $eventdata->fullmessage = $message->smallmessage;
             $eventdata->fullmessageformat = FORMAT_PLAIN;
-            $eventdata->fullmessagehtml = $message->smallmessage; 
+            $eventdata->fullmessagehtml = $message->smallmessage;
             // Optional.
             $eventdata->notification = 1;
 

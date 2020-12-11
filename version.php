@@ -26,8 +26,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019031202;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2020121000;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2018112800;        // Requires this Moodle version.
 $plugin->component = 'local_culactivity_stream';  // Full name of the plugin (used for diagnostics).
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '3.8.0 (Build: 2019031202)';
+$plugin->release = '3.9.0 (Build: 2020121000)';

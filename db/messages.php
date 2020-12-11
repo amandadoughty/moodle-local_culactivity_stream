@@ -24,10 +24,9 @@
  *
  */
 
-$messageproviders = array (
+defined('MOODLE_INTERNAL') || die();
 
+$messageproviders = [
     // Created course activities.
-    'course_updates' => array(
-    )
-
-);
+    'course_updates' => []
+];

@@ -39,7 +39,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2018 Amanda Doughty
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements 
+class provider implements
     \core_privacy\local\metadata\provider,
     \core_privacy\local\request\plugin\provider,
     \core_privacy\local\request\core_userlist_provider {
@@ -89,7 +89,7 @@ class provider implements
         $contextlist = new contextlist();
 
         // Messages are in the user context.
-        $hasdata = $DB->record_exists_select('message_culactivity_stream_q', 'userfromid = ?', [$userid]);        
+        $hasdata = $DB->record_exists_select('message_culactivity_stream_q', 'userfromid = ?', [$userid]);
 
         if ($hasdata) {
             $contextlist->add_user_context($userid);
@@ -115,11 +115,11 @@ class provider implements
         $userid = $context->instanceid;
 
         $hasdata = $DB->record_exists_select('message_culactivity_stream_q', 'userfromid = ?', [$userid]);
-        
+
         if ($hasdata) {
             $userlist->add_user($userid);
         }
-    }    
+    }
 
     /**
      * Export personal data for the given approved_contextlist. User and context information is contained within the contextlist.
@@ -185,7 +185,7 @@ class provider implements
 
         if (empty($contexts)) {
             return;
-        }        
+        }
 
         $DB->delete_records_select('message_culactivity_stream_q', 'userfromid = ?', [$userid]);
     }
@@ -216,7 +216,7 @@ class provider implements
         $userid = $context->instanceid;
 
         $DB->delete_records_select('message_culactivity_stream_q', 'userfromid = ?', [$userid]);
-    }    
+    }
 
     /**
      * Export the notification data.
@@ -230,8 +230,14 @@ class provider implements
 
         $notificationdata = [];
         $select = "userfromid = ?";
-        $message_culactivity_stream_q = $DB->get_recordset_select('message_culactivity_stream_q', $select, [$userid, $userid], 'timecreated ASC');
-        foreach ($message_culactivity_stream_q as $notification) {
+        $messageculactivitystreamq = $DB->get_recordset_select(
+            'message_culactivity_stream_q',
+            $select,
+            [$userid, $userid],
+            'timecreated ASC'
+        );
+
+        foreach ($messageculactivitystreamq as $notification) {
             $data = (object) [
                 'sent' => transform::yesno($notification->sent),
                 'courseid' => $notification->courseid,
@@ -246,8 +252,11 @@ class provider implements
 
             $notificationdata[] = $data;
         }
-        $message_culactivity_stream_q->close();
+        $messageculactivitystreamq->close();
 
-        writer::with_context($context)->export_data([get_string('message_culactivity_stream_q', 'local_culactivity_stream')], (object) $notificationdata);
+        writer::with_context($context)->export_data(
+            [get_string('message_culactivity_stream_q', 'local_culactivity_stream')],
+            (object) $notificationdata
+        );
     }
 }

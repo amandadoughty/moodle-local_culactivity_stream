@@ -24,22 +24,21 @@
  *
  */
 
-$observers = array(
+defined('MOODLE_INTERNAL') || die();
 
+$observers = [
     /*
      * Course module created.
      */
-    array(
+    [
         'eventname' => '\core\event\course_module_created',
         'callback'  => 'local_culactivity_stream_observer::course_module_created',
-    ),
-
+    ],
     /*
      * Course module updated.
      */
-    array(
+    [
         'eventname' => '\core\event\course_module_updated',
         'callback'  => 'local_culactivity_stream_observer::course_module_updated',
-    ),
-
-);
+    ],
+];

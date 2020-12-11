@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// vendor/bin/phpunit local/culactivity_stream/tests/privacy_provider_test.php
+/* vendor/bin/phpunit local/culactivity_stream/tests/privacy_provider_test.php */
 
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\deletion_criteria;
@@ -33,6 +33,8 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Privacy provider tests class.
  *
+ * @group culactivity
+ * 
  * @package    local_culactivity_stream
  * @copyright  2019 Amanda Doughty
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -53,10 +55,10 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
     /**
      * {@inheritdoc}
      */
-    protected function setUp() {
+    protected function setUp() : void {
         $this->resetAfterTest();
 
-        global $DB, $CFG, $USER;        
+        global $DB, $CFG, $USER;
 
         $generator = $this->getDataGenerator();
         $course = $generator->create_course();
@@ -75,7 +77,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         ];
 
         // A choice activity.
-        $plugingenerator = $generator->get_plugin_generator('mod_choice');        
+        $plugingenerator = $generator->get_plugin_generator('mod_choice');
         $choice = $plugingenerator->create_instance($params);
         $this->teacher = $teacher;
         $this->course = $course;
@@ -116,7 +118,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         $contextforuser = $contextlist->current();
         $context = context_user::instance($this->teacher->id);
         $this->assertEquals($context->id, $contextforuser->id);
-    }    
+    }
 
     /**
      * Test for provider::export_user_data().
@@ -155,7 +157,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         // Create a teacher who will update the choice.
         $teacher2 = $generator->create_user();
         $USER = $teacher2;
-        $teacherrole = $DB->get_record('role', ['shortname' => 'teacher']);        
+        $teacherrole = $DB->get_record('role', ['shortname' => 'teacher']);
         $generator->enrol_user($teacher2->id,  $this->course->id, $teacherrole->id);
         $cm = get_coursemodule_from_instance('choice', $this->choice->id);
         $cm->name = 'First Choice Activity V2';
@@ -219,7 +221,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         \local_culactivity_stream\privacy\provider::get_users_in_context($userlist);
 
         $this->assertCount(0, $userlist->get_userids());
-    }    
+    }
 
     /**
      * Test for provider::delete_data_for_users().
@@ -231,7 +233,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         // Create a teacher who will update the choice.
         $teacher2 = $generator->create_user();
         $USER = $teacher2;
-        $teacherrole = $DB->get_record('role', ['shortname' => 'teacher']);        
+        $teacherrole = $DB->get_record('role', ['shortname' => 'teacher']);
         $generator->enrol_user($teacher2->id,  $this->course->id, $teacherrole->id);
         $cm = get_coursemodule_from_instance('choice', $this->choice->id);
         $cm->name = 'First Choice Activity V2';
