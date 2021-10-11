@@ -33,7 +33,7 @@ use local_culactivity_stream\task\messaging_cleanup_task;
  * Class for testing the message clean up task.
  *
  * @group culactivity
- * 
+ *
  * @package local_culactivity_stream
  * @category test
  * @copyright 2020 Amanda Doughty

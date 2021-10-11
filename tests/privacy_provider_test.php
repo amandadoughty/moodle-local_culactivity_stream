@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * Privacy provider tests class.
  *
  * @group culactivity
- * 
+ *
  * @package    local_culactivity_stream
  * @copyright  2019 Amanda Doughty
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -55,7 +55,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
     /**
      * {@inheritdoc}
      */
-    protected function setUp() : void {
+    protected function setUp () : void {
         $this->resetAfterTest();
 
         global $DB, $CFG, $USER;
