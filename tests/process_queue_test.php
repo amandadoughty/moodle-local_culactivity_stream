@@ -16,7 +16,7 @@
 
 /**
  * Tests the message clean up task.
- * 
+ *
  * @group culactivity
  *
  * @package local_culactivity_stream

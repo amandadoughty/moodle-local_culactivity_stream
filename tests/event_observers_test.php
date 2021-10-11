@@ -29,9 +29,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Class for testing the event observer.
- * 
+ *
  * @group culactivity
- * 
+ *
  * @package local_culactivity_stream
  * @category test
  * @copyright 2020 Amanda Doughty
