@@ -23,7 +23,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/* vendor/bin/phpunit local/culactivity_stream/tests/event_observers_test.php */
+namespace local_culactivity_stream;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -37,7 +37,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2020 Amanda Doughty
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_culactivity_stream_event_observers_testcase extends advanced_testcase {
+class event_observers_test extends \advanced_testcase {
 
     /**
      * Test the course module update observer.
@@ -57,7 +57,7 @@ class local_culactivity_stream_event_observers_testcase extends advanced_testcas
         $assign = $this->getDataGenerator()->create_module('assign', array('course' => $course->id));
 
         // Get the module context.
-        $modcontext = context_module::instance($assign->cmid);
+        $modcontext = \context_module::instance($assign->cmid);
 
         // Get course module.
         $cm = get_coursemodule_from_id(null, $assign->cmid, $course->id, false, MUST_EXIST);

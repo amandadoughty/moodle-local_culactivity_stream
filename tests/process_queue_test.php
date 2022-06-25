@@ -25,7 +25,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/* vendor/bin/phpunit local/culactivity_stream/tests/process_queue_test.php */
+namespace local_culactivity_stream;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -39,7 +39,7 @@ use local_culactivity_stream\task\process_queue;
  * @copyright 2020 Amanda Doughty
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_culactivity_stream_process_queue_testcase extends advanced_testcase {
+class process_queue_test extends \advanced_testcase {
 
     /**
      * Test that all queued notifications are processed.

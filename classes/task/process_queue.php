@@ -98,12 +98,17 @@ class process_queue extends \core\task\scheduled_task {
                     }
                 }
             } else {
-                mtrace("Invalid course id: $message->courseid");
+                if (debugging()) {
+                    mtrace("Invalid course id: $message->courseid");
+                }
                 // Update queue.
                 $message->sent = -1;
             }
 
-            mtrace("$countsent users were notified of '$message->smallmessage'");
+            if (debugging() && !PHPUNIT_TEST) {
+                mtrace("$countsent users were notified of '$message->smallmessage'");
+            }
+
             $result = $DB->update_record('message_culactivity_stream_q', $message);
         }
 

@@ -23,7 +23,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/* vendor/bin/phpunit local/culactivity_stream/tests/message_cleanup_test.php */
+namespace local_culactivity_stream;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -39,7 +39,7 @@ use local_culactivity_stream\task\messaging_cleanup_task;
  * @copyright 2020 Amanda Doughty
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_culactivity_stream_messaging_cleanup_testcase extends advanced_testcase {
+class message_cleanup_test extends \advanced_testcase {
 
     /**
      * Test that all queued and processed notifications are cleaned up.
@@ -145,7 +145,7 @@ class local_culactivity_stream_messaging_cleanup_testcase extends advanced_testc
     ) {
         global $DB, $CFG;
 
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->useridfrom = $userfrom->id;
         $record->courseid = $courseid;
         $record->cmid = 100999;
@@ -164,7 +164,7 @@ class local_culactivity_stream_messaging_cleanup_testcase extends advanced_testc
     /**
      * Send a fake sent culactivity_stream notification to queue.
      *
-     * @param stdClass $userfrom user object of the one sending the message.
+     * @param \stdClass $userfrom user object of the one sending the message.
      * @param int $courseid course id of the course updated.
      * @param string $message message to send.
      * @param int $timecreated time the message was created.
@@ -178,7 +178,7 @@ class local_culactivity_stream_messaging_cleanup_testcase extends advanced_testc
     ) {
         global $DB, $CFG;
 
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->useridfrom = $userfrom->id;
         $record->courseid = $courseid;
         $record->cmid = 100999;

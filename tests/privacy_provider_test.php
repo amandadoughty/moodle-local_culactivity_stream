@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/* vendor/bin/phpunit local/culactivity_stream/tests/privacy_provider_test.php */
+namespace local_culactivity_stream;
 
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\deletion_criteria;
@@ -39,7 +39,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2019 Amanda Doughty
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\tests\provider_testcase {
+class privacy_provider_test extends \core_privacy\tests\provider_testcase {
     /** @var stdClass The teacher object. */
     protected $teacher;
 
@@ -116,7 +116,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         $contextlist = provider::get_contexts_for_userid($this->teacher->id);
         $this->assertCount(1, $contextlist);
         $contextforuser = $contextlist->current();
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
         $this->assertEquals($context->id, $contextforuser->id);
     }
 
@@ -124,7 +124,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
      * Test for provider::export_user_data().
      */
     public function test_export_for_context() {
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
 
         // Export all of the data for the context.
         $this->export_context_data_for_user($this->teacher->id, $context, 'local_culactivity_stream');
@@ -139,7 +139,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         global $DB;
 
         // Delete data based on context.
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
         provider::delete_data_for_all_users_in_context($context);
 
         // After deletion, all queued messages should be deleted.
@@ -177,7 +177,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         $count = $DB->count_records('message_culactivity_stream_q');
         $this->assertEquals(2, $count);
 
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
 
         $contextlist = new \core_privacy\local\request\approved_contextlist($this->teacher, 'local_culactivity_stream',
             [$context->id]);
@@ -200,7 +200,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
      * Test for provider::get_users_in_context().
      */
     public function test_get_users_in_context() {
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
 
         $userlist = new \core_privacy\local\request\userlist($context, 'local_culactivity_stream');
         \local_culactivity_stream\privacy\provider::get_users_in_context($userlist);
@@ -216,7 +216,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
      */
     public function test_get_users_in_context_invalid_context_type() {
         $cm = get_coursemodule_from_instance('choice', $this->choice->id);
-        $cmcontext = context_module::instance($cm->id);
+        $cmcontext = \context_module::instance($cm->id);
         $userlist = new \core_privacy\local\request\userlist($cmcontext, 'local_culactivity_stream');
         \local_culactivity_stream\privacy\provider::get_users_in_context($userlist);
 
@@ -253,7 +253,7 @@ class local_culactivity_stream_privacy_provider_testcase extends \core_privacy\t
         $notifications = $DB->count_records('message_culactivity_stream_q');
         $this->assertEquals(2, $notifications);
 
-        $context = context_user::instance($this->teacher->id);
+        $context = \context_user::instance($this->teacher->id);
 
         $approveduserlist = new \core_privacy\local\request\approved_userlist($context, 'local_culactivity_stream',
                 [$this->teacher->id, $teacher2->id]);
