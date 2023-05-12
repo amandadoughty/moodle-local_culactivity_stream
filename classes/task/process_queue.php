@@ -73,7 +73,7 @@ class process_queue extends \core\task\scheduled_task {
                 mtrace($e->getMessage());
             }
 
-            if ($course && $context) {
+            if ($course && $context && $message->courseid != 3) {
                 // For each user that can see this.
                 $users = get_enrolled_users($context);
                 $countsent = 0;
