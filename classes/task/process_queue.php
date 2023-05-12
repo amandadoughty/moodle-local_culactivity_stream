@@ -73,10 +73,26 @@ class process_queue extends \core\task\scheduled_task {
                 mtrace($e->getMessage());
             }
 
-            if ($course && $context && $message->courseid != 3) {
+            // Get the config from the database
+            try {
+                $blacklistcourseids = $DB->get_record('config', array('name' => 'blacklistcourseid')); // Need to rename table id to represent plurals
+            } catch (\Exception $e) {
+                mtrace("Error getting courseids $e->getMessage()");
+            }
+
+            // check the response returned a value
+            $is_not_blacklisted = false;
+            if ($blacklistcourseids != false) {
+                $courseids = explode('|',$blacklistcourseids->value); // needs validation and checking
+                if (!in_array($message->courseid, $courseids)) {
+                    $is_not_blacklisted = true;
+                }                
+            }
+
+            $countsent = 0;
+            if ($course && $context && $is_not_blacklisted) {
                 // For each user that can see this.
-                $users = get_enrolled_users($context);
-                $countsent = 0;
+                $users = get_enrolled_users($context);                
 
                 foreach ($users as $user) {
                     if ($course->visible
@@ -97,6 +113,10 @@ class process_queue extends \core\task\scheduled_task {
                         }
                     }
                 }
+            } else if ($is_not_blacklisted == false) {
+                mtrace("Blacklisted course id: $message->courseid");
+                $message->sent = 1;
+                // could use this to remove from the record
             } else {
                 if (debugging()) {
                     mtrace("Invalid course id: $message->courseid");
