@@ -47,3 +47,6 @@ $string['processqueue'] = 'Process the queue of course update messages';
 $string['taskmessagingcleanup'] = 'Clean up old messages from the CUL Activity Feed tables';
 $string['updated'] = '{$a} updated';
 
+$string['blacklistcourseid'] = 'Prevent the following course IDs from appearing in any feeds';
+$string['configblacklistcourseid'] = 'Course IDs should be seperated with a | .';
+

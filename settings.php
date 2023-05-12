@@ -44,4 +44,11 @@ if ($hassiteconfig) {
         31449600,
         $options
     ));
+
+    $settings->add(new admin_setting_configtextarea(
+        'blacklistcourseid',
+        new lang_string('blacklistcourseid', 'local_culactivity_stream'),
+        new lang_string('configblacklistcourseid', 'local_culactivity_stream'),
+        ''
+    ));
 }
